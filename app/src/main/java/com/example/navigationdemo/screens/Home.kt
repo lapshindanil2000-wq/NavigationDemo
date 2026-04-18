@@ -1,4 +1,5 @@
 package com.example.navigationdemo.screens
+
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,15 +21,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation3.runtime.NavKey
+import com.example.navigationdemo.WelcomeScreen
+
 @Composable
 fun Home(onNavigation: (NavKey) -> Unit) {
     var userName by remember { mutableStateOf("") }
-    val onTextChange = { text : String ->
+    val onTextChange = { text: String ->
         userName = text
     }
     Box(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -39,12 +41,14 @@ fun Home(onNavigation: (NavKey) -> Unit) {
             )
             Spacer(modifier = Modifier.size(30.dp))
             Button(onClick = {
+                onNavigation(WelcomeScreen(userName))
             }) {
                 Text(text = "Register")
             }
         }
     }
 }
+
 @Composable
 fun CustomTextField(
     title: String,
@@ -55,7 +59,7 @@ fun CustomTextField(
         value = textState,
         onValueChange = { onTextChange(it) },
         singleLine = true,
-        label = { Text(title)},
+        label = { Text(title) },
         modifier = Modifier.padding(10.dp),
         textStyle = TextStyle(
             fontWeight = FontWeight.Bold,
